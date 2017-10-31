@@ -42,6 +42,16 @@ public class User extends BaseEntity {
     @Column(nullable = false)
     private boolean banned;
 
+    
+    public void setBanned(boolean isBanned){
+        this.banned=isBanned;    
+    }
+    
+    public boolean getBanned(){
+        return this.banned;    
+    }
+    
+    
     public enum Role {
         GUEST, USER, ADMIN, MODERATOR
     }

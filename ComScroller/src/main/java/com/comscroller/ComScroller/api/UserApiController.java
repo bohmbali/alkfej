@@ -3,7 +3,7 @@ package com.comscroller.ComScroller.api;
 import com.comscroller.ComScroller.model.User;
 import com.comscroller.ComScroller.service.UserService;
 import com.comscroller.ComScroller.service.annotations.Role;
-import com.comscroller.ComScroller.service.exceptions.UserNotValidException;
+import com.comscroller.ComScroller.service.exceptions.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,18 +32,50 @@ public class UserApiController {
         }
         return ResponseEntity.badRequest().build();
     }
+    
+    @Role({ADMIN,MODERATOR})
+    @GetMapping("/users")
+    public ResponseEntity<Iterable<User>> listAllUser() {
+        if (userService.isLoggedIn()) {
+            Iterable<User> users = userService.users();
+            return ResponseEntity.ok(users);
+        }
+        return ResponseEntity.badRequest().build();
+    }
 
     @PostMapping("/login")
     public ResponseEntity<User> login(@RequestBody User user) {
         try {
             return ResponseEntity.ok(userService.login(user));
-        } catch (UserNotValidException e) {
+        } catch (UserNotValidException ev) {
+            return ResponseEntity.badRequest().build();
+        }  catch (UserIsBannedException eb) {
             return ResponseEntity.badRequest().build();
         }
+        
+    }
+    
+    @Role({ADMIN})
+    @PutMapping("/role")
+    public ResponseEntity<User> login(@RequestBody User user, User.Role role) {
+        return ResponseEntity.ok(userService.changeRole(user,role));  
+    }
+    
+    @Role({ADMIN,MODERATOR})
+    @PutMapping("/ban")
+    public ResponseEntity<User> ban(@RequestBody User user) {
+        return ResponseEntity.ok(userService.ban(user));  
+    }
+    
+    
+    @Role({ADMIN})
+    @PutMapping("/delete")
+    public void delete(@RequestBody User user) {
+        userService.delete(user);  
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody User user) {
-        return ResponseEntity.ok(userService.register(user));
+    @PostMapping("/registration")
+    public ResponseEntity<User> registration(@RequestBody User user) {
+        return ResponseEntity.ok(userService.registration(user));
     }
 }

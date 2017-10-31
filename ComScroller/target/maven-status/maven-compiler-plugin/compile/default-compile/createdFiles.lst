@@ -1,0 +1,9 @@
+com\comscroller\ComScroller\ComScrollerApplication.class
+com\comscroller\ComScroller\model\User$Role.class
+com\comscroller\ComScroller\service\exceptions\UserIsBannedException.class
+com\comscroller\ComScroller\model\User.class
+com\comscroller\ComScroller\controller\UserController.class
+com\comscroller\ComScroller\service\exceptions\UserNotValidException.class
+com\comscroller\ComScroller\repository\UserRepository.class
+com\comscroller\ComScroller\model\BaseEntity.class
+com\comscroller\ComScroller\service\annotations\Role.class

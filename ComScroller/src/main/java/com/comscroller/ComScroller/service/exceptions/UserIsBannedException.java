@@ -9,22 +9,22 @@ package com.comscroller.ComScroller.service.exceptions;
  *
  * @author Bohm_Balazs
  */
-public class UserNotValidException extends Exception {
+public class UserIsBannedException extends Exception {
 
     /**
-     * Creates a new instance of <code>UserNotValidException</code> without
+     * Creates a new instance of <code>UserIsBannedException</code> without
      * detail message.
      */
-    public UserNotValidException() {
+    public UserIsBannedException() {
     }
 
     /**
-     * Constructs an instance of <code>UserNotValidException</code> with the
+     * Constructs an instance of <code>UserIsBannedException</code> with the
      * specified detail message.
      *
      * @param msg the detail message.
      */
-    public UserNotValidException(String msg) {
+    public UserIsBannedException(String msg) {
         super(msg);
     }
 }

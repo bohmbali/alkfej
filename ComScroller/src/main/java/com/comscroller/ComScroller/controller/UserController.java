@@ -39,16 +39,31 @@ public class UserController {
         return "login";
     }
 
-    @GetMapping("/register")
-    public String register(Model model) {
+    @GetMapping("/registration")
+    public String registration(Model model) {
         model.addAttribute("user", new User());
         return "register";
     }
 
-    @PostMapping("/register")
-    public String register(@ModelAttribute User user) {
-        userService.register(user);
+    @PostMapping("/registration")
+    public String registration(@ModelAttribute User user) {
+        userService.registration(user);
         return redirectToGreeting(user);
+    }
+    
+    @GetMapping("/users")
+    public String listUsers(Model model) {
+        model.addAttribute(new User());
+        return "users";
+    }
+
+    @PostMapping("/users")
+    public String listUsers(@ModelAttribute User user) {
+        if (userService.isAdmin(user) || userService.isModerator(user)) {
+            //TODO
+        }
+        //TODO
+        return "users";
     }
 
     private String redirectToGreeting(@ModelAttribute User user) {
