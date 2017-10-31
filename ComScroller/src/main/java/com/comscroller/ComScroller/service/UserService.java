@@ -49,7 +49,7 @@ public class UserService {
     
     public User ban(User user){
         if(!isAdmin(user)){
-            user.setBanned(!user.isBanned(user));
+            user.setBanned(!isBanned(user));
             userRepository.save(user);
         }
         return user;
@@ -63,13 +63,7 @@ public class UserService {
     public Iterable<User> users() {
         return userRepository.findAll();
     }
-    
-    
-    public User user(Integer id) {
-        return userRepository.findById(id);
-    }
-
-
+     
     public boolean isValid(User user) {
         return userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword()).isPresent();
     }

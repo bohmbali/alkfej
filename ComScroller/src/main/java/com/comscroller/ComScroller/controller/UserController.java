@@ -51,6 +51,20 @@ public class UserController {
         return redirectToGreeting(user);
     }
     
+    
+    @GetMapping("/ban")
+    public String ban(Model model) {
+        model.addAttribute("user", new User());
+        return "ban";
+    }
+
+    @PostMapping("/ban")
+    public String ban(@ModelAttribute User user) {
+        userService.registration(user);
+        return redirectToGreeting(user);
+    }
+    
+    
     @GetMapping("/users")
     public String listUsers(Model model) {
         model.addAttribute(new User());

@@ -57,7 +57,7 @@ public class UserApiController {
     
     @Role({ADMIN})
     @PutMapping("/role")
-    public ResponseEntity<User> login(@RequestBody User user, User.Role role) {
+    public ResponseEntity<User> changeRole(@RequestBody User user, User.Role role) {
         return ResponseEntity.ok(userService.changeRole(user,role));  
     }
     
