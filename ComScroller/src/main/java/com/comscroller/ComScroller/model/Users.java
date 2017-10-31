@@ -16,7 +16,11 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class User extends BaseEntity {
+public class Users {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
 
     @Column(nullable = false, unique = true)
     private String username;

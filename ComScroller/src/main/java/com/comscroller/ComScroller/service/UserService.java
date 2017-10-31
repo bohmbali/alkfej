@@ -1,6 +1,6 @@
 package com.comscroller.ComScroller.service;
 
-import com.comscroller.ComScroller.model.User;
+import com.comscroller.ComScroller.model.Users;
 import com.comscroller.ComScroller.repository.UserRepository;
 import com.comscroller.ComScroller.service.exceptions.*;
 import lombok.Data;
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 
-import static com.comscroller.ComScroller.model.User.Role.*;
+import static com.comscroller.ComScroller.model.Users.Role.*;
 
 /**
  * @author Bőhm Balázs
@@ -21,9 +21,9 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    private User user;
+    private Users user;
 
-    public User login(User user) throws UserNotValidException,UserIsBannedException {
+    public Users login(Users user) throws UserNotValidException,UserIsBannedException {
         if (isValid(user)) {
             if(!isBanned(user)){
             return this.user = userRepository.findByUsername(user.getUsername()).get();
@@ -33,7 +33,7 @@ public class UserService {
             throw new UserNotValidException();
     }
 
-    public User registration(User user) {
+    public Users registration(Users user) {
         user.setRole(USER);
         user.setBanned(false);
         System.out.print("kész");
@@ -41,13 +41,13 @@ public class UserService {
         return user;
     }
     
-    public User changeRole(User user, User.Role role){
+    public Users changeRole(Users user, Users.Role role){
         user.setRole(role);
         userRepository.save(user);
         return user;
     }
     
-    public User ban(User user){
+    public Users ban(Users user){
         if(!isAdmin(user)){
             user.setBanned(!isBanned(user));
             userRepository.save(user);
@@ -56,29 +56,29 @@ public class UserService {
     }
     
     
-    public void delete(User user){
+    public void delete(Users user){
         userRepository.delete(user);        
     }
     
-    public Iterable<User> users() {
+    public Iterable<Users> users() {
         return userRepository.findAll();
     }
      
-    public boolean isValid(User user) {
+    public boolean isValid(Users user) {
         return userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword()).isPresent();
     }
     
     
-    public boolean isBanned(User user) {
+    public boolean isBanned(Users user) {
         return userRepository.findByUsernameAndBanned(user.getUsername(), true).isPresent();
     }
     
     
-     public boolean isModerator(User user) {
+     public boolean isModerator(Users user) {
         return userRepository.findByUsernameAndRole(user.getUsername(), MODERATOR).isPresent();
     }
      
-     public boolean isAdmin(User user) {
+     public boolean isAdmin(Users user) {
         return userRepository.findByUsernameAndRole(user.getUsername(), ADMIN).isPresent();
     }
 

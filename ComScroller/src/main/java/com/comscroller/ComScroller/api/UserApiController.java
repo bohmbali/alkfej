@@ -1,6 +1,6 @@
 package com.comscroller.ComScroller.api;
 
-import com.comscroller.ComScroller.model.User;
+import com.comscroller.ComScroller.model.Users;
 import com.comscroller.ComScroller.service.UserService;
 import com.comscroller.ComScroller.service.annotations.Role;
 import com.comscroller.ComScroller.service.exceptions.*;
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static com.comscroller.ComScroller.model.User.Role.*;
+import static com.comscroller.ComScroller.model.Users.Role.*;
 
 /**
  * @author Bőhm Balázs
@@ -26,7 +26,7 @@ public class UserApiController {
 
     @Role({USER,ADMIN,MODERATOR})
     @GetMapping
-    public ResponseEntity<User> user() {
+    public ResponseEntity<Users> user() {
         if (userService.isLoggedIn()) {
             return ResponseEntity.ok(userService.getUser());
         }
@@ -35,16 +35,16 @@ public class UserApiController {
     
     @Role({ADMIN,MODERATOR})
     @GetMapping("/users")
-    public ResponseEntity<Iterable<User>> listAllUser() {
+    public ResponseEntity<Iterable<Users>> listAllUser() {
         if (userService.isLoggedIn()) {
-            Iterable<User> users = userService.users();
+            Iterable<Users> users = userService.users();
             return ResponseEntity.ok(users);
         }
         return ResponseEntity.badRequest().build();
     }
 
     @PostMapping("/login")
-    public ResponseEntity<User> login(@RequestBody User user) {
+    public ResponseEntity<Users> login(@RequestBody Users user) {
         try {
             return ResponseEntity.ok(userService.login(user));
         } catch (UserNotValidException ev) {
@@ -57,25 +57,25 @@ public class UserApiController {
     
     @Role({ADMIN})
     @PutMapping("/role")
-    public ResponseEntity<User> changeRole(@RequestBody User user, User.Role role) {
+    public ResponseEntity<Users> changeRole(@RequestBody Users user, Users.Role role) {
         return ResponseEntity.ok(userService.changeRole(user,role));  
     }
     
     @Role({ADMIN,MODERATOR})
     @PutMapping("/ban")
-    public ResponseEntity<User> ban(@RequestBody User user) {
+    public ResponseEntity<Users> ban(@RequestBody Users user) {
         return ResponseEntity.ok(userService.ban(user));  
     }
     
     
     @Role({ADMIN})
     @PutMapping("/delete")
-    public void delete(@RequestBody User user) {
+    public void delete(@RequestBody Users user) {
         userService.delete(user);  
     }
 
     @PostMapping("/registration")
-    public ResponseEntity<User> registration(@RequestBody User user) {
+    public ResponseEntity<Users> registration(@RequestBody Users user) {
         return ResponseEntity.ok(userService.registration(user));
     }
 }

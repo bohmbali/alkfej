@@ -1,6 +1,6 @@
 package com.comscroller.ComScroller.service.annotations;
 
-import com.comscroller.ComScroller.model.User;
+import com.comscroller.ComScroller.model.Users;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -14,5 +14,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface Role {
-    User.Role[] value() default {User.Role.GUEST};
+    Users.Role[] value() default {Users.Role.GUEST};
 }

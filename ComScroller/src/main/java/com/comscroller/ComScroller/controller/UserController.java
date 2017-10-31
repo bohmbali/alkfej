@@ -1,6 +1,6 @@
 package com.comscroller.ComScroller.controller;
 
-import com.comscroller.ComScroller.model.User;
+import com.comscroller.ComScroller.model.Users;
 import com.comscroller.ComScroller.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,12 +26,12 @@ public class UserController {
 
     @GetMapping("/login")
     public String login(Model model) {
-        model.addAttribute(new User());
+        model.addAttribute(new Users());
         return "login";
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute User user, Model model) {
+    public String login(@ModelAttribute Users user, Model model) {
         if (userService.isValid(user)) {
             return redirectToGreeting(user);
         }
@@ -41,12 +41,12 @@ public class UserController {
 
     @GetMapping("/registration")
     public String registration(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("user", new Users());
         return "register";
     }
 
     @PostMapping("/registration")
-    public String registration(@ModelAttribute User user) {
+    public String registration(@ModelAttribute Users user) {
         userService.registration(user);
         return redirectToGreeting(user);
     }
@@ -54,12 +54,12 @@ public class UserController {
     
     @GetMapping("/ban")
     public String ban(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("user", new Users());
         return "ban";
     }
 
     @PostMapping("/ban")
-    public String ban(@ModelAttribute User user) {
+    public String ban(@ModelAttribute Users user) {
         userService.registration(user);
         return redirectToGreeting(user);
     }
@@ -67,12 +67,12 @@ public class UserController {
     
     @GetMapping("/users")
     public String listUsers(Model model) {
-        model.addAttribute(new User());
+        model.addAttribute(new Users());
         return "users";
     }
 
     @PostMapping("/users")
-    public String listUsers(@ModelAttribute User user) {
+    public String listUsers(@ModelAttribute Users user) {
         if (userService.isAdmin(user) || userService.isModerator(user)) {
             //TODO
         }
@@ -80,7 +80,7 @@ public class UserController {
         return "users";
     }
 
-    private String redirectToGreeting(@ModelAttribute User user) {
+    private String redirectToGreeting(@ModelAttribute Users user) {
         return "redirect:/user/greet?name=" + user.getUsername();
     }
 }

@@ -11,14 +11,15 @@ begin
     email VARCHAR(100) NOT NULL UNIQUE,
     role VARCHAR(10) NOT NULL,
     nickname VARCHAR(50) NOT NULL UNIQUE,
-    complited_games VARCHAR(6000),
+    completed_games VARCHAR(6000),
+    characters VARCHAR(6000),
     banned BIT DEFAULT 0 NOT NULL,
     PRIMARY KEY(id)
   )
   CREATE TABLE Games
   (
     id INT NOT NULL UNIQUE,
-    name VARCHAR(200) NOT NULL,
+    name VARCHAR(200) NOT NULL UNIQUE,
     ownerid INT DEFAULT 1,
     ispublic BIT DEFAULT 0 NOT NULL,
     approved BIT DEFAULT 0 NOT NULL,
@@ -28,7 +29,6 @@ begin
     endscene1 INT NOT NULL,
     endscene2 INT,
     endscene3 INT,
-    lastcheckpoint INT,
     PRIMARY KEY(id)
   )
   CREATE TABLE Scenes
@@ -47,21 +47,24 @@ begin
     actiontext3 VARCHAR(2000),
     characterid INT,
     ischeckpoint BIT,
+    isdeadpoint BIT,
     PRIMARY KEY(id)
   )
   CREATE TABLE Characters
   (
     id INT NOT NULL UNIQUE,
+    gameid INT NOT NULL,
+    type INT NOT NULL,
     name VARCHAR(100),
     hp BIT,
-    mp INT,
+    ap INT,
     str INT,
-    dex INT,
+    agi INT,
     int INT,
-    luck INT,
+    fate INT,
     items VARCHAR(6000),
-    type INT NOT NULL,
     picture VARCHAR(200),
+    lastcheckpoint INT,
     PRIMARY KEY(id)
   )
 
