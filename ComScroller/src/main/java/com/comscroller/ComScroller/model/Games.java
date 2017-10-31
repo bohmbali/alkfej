@@ -7,8 +7,6 @@ package com.comscroller.ComScroller.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,7 +15,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Component;
 
 /**
  *
@@ -28,18 +25,18 @@ import org.springframework.stereotype.Component;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode()
 public class Games {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Integer id;
     
     @Column(nullable = false, unique = true)
     private String name;
     
-    @Column()
-    private int ownerid;
+    @Column(nullable =false)
+    private Integer ownerid;
 
     @Column(nullable = false)
     private boolean ispublic;
@@ -51,18 +48,21 @@ public class Games {
     private boolean finished;
     
     @Column(nullable = false)
-    private int startscene;
+    private Integer startscene;
     
     @Column()
-    private int maincharacter;
+    private Integer maincharacter;
     
     @Column(nullable = false)
-    private int endscene1;
+    private Integer endscene1;
     
     @Column()
-    private int endscene2;
+    private Integer endscene2;
     
     @Column()
-    private int endscene3;
+    private Integer endscene3;
+    
+    @Column()
+    private String description;
     
 }

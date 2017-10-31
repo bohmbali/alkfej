@@ -7,6 +7,8 @@ import com.comscroller.ComScroller.service.exceptions.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.sql.SQLException;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import static com.comscroller.ComScroller.model.Users.Role.*;
 
@@ -42,6 +44,15 @@ public class UserApiController {
         }
         return ResponseEntity.badRequest().build();
     }
+    
+    
+    @Role({ADMIN,MODERATOR})
+    @GetMapping("/{username}")
+    public ResponseEntity<Users> seeUser(@PathVariable String username) {
+        Users user = userService.getUser(username);
+        return ResponseEntity.ok(user);
+    }
+
 
     @PostMapping("/login")
     public ResponseEntity<Users> login(@RequestBody Users user) {
@@ -76,6 +87,10 @@ public class UserApiController {
 
     @PostMapping("/registration")
     public ResponseEntity<Users> registration(@RequestBody Users user) {
-        return ResponseEntity.ok(userService.registration(user));
+        try{
+            return ResponseEntity.ok(userService.registration(user));
+        } catch (SQLException | DataIntegrityViolationException e){
+            return ResponseEntity.badRequest().build();
+        }
     }
 }

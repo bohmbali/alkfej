@@ -25,39 +25,42 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode()
 public class Characters {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Integer id;
         
     @Column(nullable = false)
-    private int gameid;
+    private Integer gameid;    
+    
+    @Column(nullable = false)
+    private Integer userid;
         
     @Column(nullable = false)
-    private int type;
+    private Integer type;
     
     @Column(nullable = false)
     private String name;
     
     @Column(nullable = false)
-    private int hp;
+    private Integer hp;
     
     @Column(nullable = false)
-    private int ap;
+    private Integer ap;
     
     @Column(nullable = false)
-    private int Str;
+    private Integer Str;
     
     @Column(nullable = false)
-    private int Agi;
+    private Integer Agi;
     
     @Column(nullable = false)
-    private int Int;
+    private Integer Int;
     
     @Column(nullable = false)
-    private int fate;
+    private Integer fate;
     
     @Column()
     private String items;
@@ -66,5 +69,5 @@ public class Characters {
     private String picture;
     
     @Column(nullable = false)
-    private int lastcheckpoint;
+    private Integer lastcheckpoint;
 }

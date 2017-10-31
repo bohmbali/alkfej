@@ -7,7 +7,7 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
-
+import java.sql.SQLException;
 import static com.comscroller.ComScroller.model.Users.Role.*;
 
 /**
@@ -33,11 +33,10 @@ public class UserService {
             throw new UserNotValidException();
     }
 
-    public Users registration(Users user) {
+    public Users registration(Users user) throws SQLException{
         user.setRole(USER);
-        user.setBanned(false);
-        System.out.print("kész");
-        this.user = userRepository.save(user);
+        user.setBanned(false);        
+        this.user = userRepository.save(user);        
         return user;
     }
     
@@ -62,6 +61,11 @@ public class UserService {
     
     public Iterable<Users> users() {
         return userRepository.findAll();
+    }
+    
+    public Users getUser(String username) {
+        return userRepository.findByUsername(username).get();
+        
     }
      
     public boolean isValid(Users user) {

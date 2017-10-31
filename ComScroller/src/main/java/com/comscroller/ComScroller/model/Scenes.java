@@ -25,18 +25,18 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode()
 public class Scenes {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Integer id;
     
     @Column(nullable = false)
-    private int gameid;
+    private Integer gameid;
         
     @Column(nullable = false)
-    private int type;
+    private Integer type;
     
     @Column()
     private String maintext;
@@ -48,25 +48,25 @@ public class Scenes {
     private String picture2;
     
     @Column()
-    private int action1;
+    private Integer action1;
      
     @Column()
     private String actiontext1;
     
     @Column()
-    private int action2;
+    private Integer action2;
      
     @Column()
     private String actiontext2;
     
     @Column()
-    private int action3;
+    private Integer action3;
      
     @Column()
     private String actiontext3;
         
     @Column()
-    private int characterid;
+    private Integer characterid;
     
     @Column()
     private boolean ischeckpoint;

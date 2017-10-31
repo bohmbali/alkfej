@@ -39,7 +39,7 @@ public class UserController {
         return "login";
     }
 
-    @GetMapping("/registration")
+   /* @GetMapping("/registration")
     public String registration(Model model) {
         model.addAttribute("user", new Users());
         return "register";
@@ -49,7 +49,7 @@ public class UserController {
     public String registration(@ModelAttribute Users user) {
         userService.registration(user);
         return redirectToGreeting(user);
-    }
+    }*/
     
     
     @GetMapping("/ban")
@@ -57,12 +57,12 @@ public class UserController {
         model.addAttribute("user", new Users());
         return "ban";
     }
-
+/*
     @PostMapping("/ban")
     public String ban(@ModelAttribute Users user) {
         userService.registration(user);
         return redirectToGreeting(user);
-    }
+    }*/
     
     
     @GetMapping("/users")
