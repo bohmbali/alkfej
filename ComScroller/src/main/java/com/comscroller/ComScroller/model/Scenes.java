@@ -69,8 +69,14 @@ public class Scenes {
     private Integer characterid;
     
     @Column()
-    private boolean ischeckpoint;
+    private boolean checkpoint;
     
     @Column()
-    private boolean isdeadpoint;
+    private boolean deadpoint;
+    
+    @Column()
+    private String items;
+    
+    @Column()
+    private String requiredItems;
 }
