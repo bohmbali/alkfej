@@ -37,10 +37,6 @@ public class EditorService {
     private SceneRepository sceneRepository;
     @Autowired
     private CharacterRepository characterRepository;
-    private Games game;
-    private Scenes scene;
-    private Characters mainCharacter;
-    private Characters character;
 
     public Iterable<Games> list(Users user){
         Users.Role role = user.getRole();
@@ -65,5 +61,14 @@ public class EditorService {
             sceneRepository.delete(scene); 
         } 
         gameRepository.delete(game); 
+    }
+    public void create(Games game, Iterable<Scenes> scenes, Iterable<Characters> characters){
+        gameRepository.save(game);
+        for(Scenes scene : scenes){
+            sceneRepository.save(scene); 
+        }
+        for(Characters character : characters){
+            characterRepository.save(character); 
+        }
     }
 }

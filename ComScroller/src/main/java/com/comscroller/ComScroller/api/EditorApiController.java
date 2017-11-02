@@ -5,7 +5,9 @@
  */
 package com.comscroller.ComScroller.api;
 
+import com.comscroller.ComScroller.model.Characters;
 import com.comscroller.ComScroller.model.Games;
+import com.comscroller.ComScroller.model.Scenes;
 import com.comscroller.ComScroller.model.Users;
 import static com.comscroller.ComScroller.model.Users.Role.ADMIN;
 import static com.comscroller.ComScroller.model.Users.Role.GUEST;
@@ -20,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-@RequestMapping("/api/game")
+@RequestMapping("/api/editor")
 public class EditorApiController {
 
     private final EditorService editorService;
@@ -61,11 +64,25 @@ public class EditorApiController {
     public ResponseEntity<Boolean> delete(@RequestBody Games game, HttpServletResponse response, HttpServletRequest request) {
         editorService.delete(game);
         try {
-            response.sendRedirect("/api/game/");
+            response.sendRedirect("/api/editor/");
         } catch (IOException e) {
 
             return ResponseEntity.badRequest().build();
         }
+        return ResponseEntity.ok(true);
+    }
+    
+    @Role({USER,ADMIN,MODERATOR})
+    @GetMapping("/create")
+    public ResponseEntity<Games> create(HttpServletResponse response, HttpServletRequest request) {
+        return ResponseEntity.ok(new Games());
+    }
+    
+    @Role({USER,ADMIN,MODERATOR})
+    @PostMapping("/create")
+    public ResponseEntity<Boolean> create(@RequestBody Games game, @RequestBody Iterable<Scenes> scenes,@RequestBody Iterable<Characters> characters, HttpServletResponse response, HttpServletRequest request) {
+        editorService.create(game, scenes, characters);
+       
         return ResponseEntity.ok(true);
     }
     
