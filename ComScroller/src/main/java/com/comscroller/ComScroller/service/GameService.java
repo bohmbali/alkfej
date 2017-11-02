@@ -77,22 +77,8 @@ public class GameService {
 
         String[] splitRequired = items.split(";");
         List<String> requiredItems = Arrays.asList(splitRequired);
-        Collections.sort(requiredItems);
         String[] split = character.getItems().split(";");
-        List<String> ownedItems = Arrays.asList(split);
-        Collections.sort(ownedItems);
-        int i = 0;
-        boolean haveIt = true;
-        for (String item : requiredItems) {
-            if (haveIt) {
-                if (i + 1 > ownedItems.size()) {
-                    haveIt = false;
-                } else {
-                    haveIt = item.equals(ownedItems.get(i));
-                }
-            }
-            i++;
-        }
-        return haveIt;
+        List<String> ownedItems = Arrays.asList(split);        
+        return ownedItems.containsAll(requiredItems);
     }
 }

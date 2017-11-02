@@ -17,6 +17,7 @@ import com.comscroller.ComScroller.repository.CharacterRepository;
 import com.comscroller.ComScroller.repository.GameRepository;
 import com.comscroller.ComScroller.repository.SceneRepository;
 import com.comscroller.ComScroller.service.annotations.Role;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,7 @@ import org.springframework.web.context.annotation.SessionScope;
 @SessionScope
 @Data
 public class EditorService {
+
     @Autowired
     private GameRepository gameRepository;
     @Autowired
@@ -38,37 +40,85 @@ public class EditorService {
     @Autowired
     private CharacterRepository characterRepository;
 
-    public Iterable<Games> list(Users user){
+    public Iterable<Games> list(Users user) {
         Users.Role role = user.getRole();
         if (role.equals(Users.Role.USER)) {
-            return gameRepository.findAllByOwnerid(user.getId(),true);
+            return gameRepository.findAllByOwnerid(user.getId(), true);
         }
-            return gameRepository.findAll();
+        return gameRepository.findAll();
     }
-    public Games finish(Games game){
+
+    public Games finish(Games game) {
         game.setFinished(!isFinished(game));
         gameRepository.save(game);
         return game;
     }
+
     public boolean isFinished(Games game) {
         return gameRepository.findByNameAndFinished(game.getName(), true).isPresent();
     }
-    public void delete(Games game){
+
+    public void delete(Games game) {
         List<Scenes> scenes = sceneRepository.findAllByGameid(game.getId());
-        for(Scenes scene : scenes){
-            Characters character = characterRepository.findById(scene.getCharacterid()); 
+        for (Scenes scene : scenes) {
+            Characters character = characterRepository.findById(scene.getCharacterid());
             characterRepository.delete(character);
-            sceneRepository.delete(scene); 
-        } 
-        gameRepository.delete(game); 
+            sceneRepository.delete(scene);
+        }
+        gameRepository.delete(game);
     }
-    public void create(Games game, Iterable<Scenes> scenes, Iterable<Characters> characters){
+
+    public void save(Games game, Iterable<Scenes> scenes, Iterable<Characters> characters) {
         gameRepository.save(game);
+        for (Scenes scene : scenes) {
+            sceneRepository.save(scene);
+        }
+        for (Characters character : characters) {
+            characterRepository.save(character);
+        }
+    }
+
+    public List<Object> getAll(int id) {
+        List<Object> all = new ArrayList<>();
+        List<Scenes> scenes = new ArrayList<>();
+        List<Characters> characters = new ArrayList<>();        
+        Games game = gameRepository.findOne(id);
+        characters.add(characterRepository.findOne(game.getMaincharacter()));
+        Integer parentId = game.getStartscene();
+        childScenes(parentId, scenes,characters);
         for(Scenes scene : scenes){
-            sceneRepository.save(scene); 
+            all.add(scene);
         }
         for(Characters character : characters){
-            characterRepository.save(character); 
+            all.add(character);
+        }
+        return all;
+    }
+
+    public void childScenes(Integer parentId,List<Scenes> scenes,List<Characters> characters) {
+        Scenes parent=sceneRepository.findOne(parentId);
+        if(!scenes.contains(parent)){
+        scenes.add(parent);
+        }
+        Characters character=characterRepository.findOne(parent.getCharacterid());
+        if(!characters.contains(character)){
+            characters.add(character);
+        }        
+        Integer childId;
+        childId = parent.getAction1();
+        if (childId != null) {
+            childScenes(childId,scenes,characters);
+            
+        }
+        childId = parent.getAction2();
+        if (childId != null) {
+            childScenes(childId,scenes,characters);
+            
+        }
+        childId = parent.getAction3();
+        if (childId != null) {
+            childScenes(childId,scenes,characters);
+            
         }
     }
 }

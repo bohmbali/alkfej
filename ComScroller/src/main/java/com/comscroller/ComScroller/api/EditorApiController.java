@@ -17,11 +17,13 @@ import com.comscroller.ComScroller.service.EditorService;
 import com.comscroller.ComScroller.service.UserService;
 import com.comscroller.ComScroller.service.annotations.Role;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -81,7 +83,20 @@ public class EditorApiController {
     @Role({USER,ADMIN,MODERATOR})
     @PostMapping("/create")
     public ResponseEntity<Boolean> create(@RequestBody Games game, @RequestBody Iterable<Scenes> scenes,@RequestBody Iterable<Characters> characters, HttpServletResponse response, HttpServletRequest request) {
-        editorService.create(game, scenes, characters);
+        editorService.save(game, scenes, characters);       
+        return ResponseEntity.ok(true);
+    }
+    
+    @Role({USER,ADMIN,MODERATOR})
+    @GetMapping("/edit/{id}")
+    public ResponseEntity<List<Object>> edit(@PathVariable int id,HttpServletResponse response, HttpServletRequest request) {
+        return ResponseEntity.ok(editorService.getAll(id));
+    }
+    
+    @Role({USER,ADMIN,MODERATOR})
+    @PostMapping("/edit/{id}")
+    public ResponseEntity<Boolean> edit(@RequestBody Games game, @RequestBody Iterable<Scenes> scenes,@RequestBody Iterable<Characters> characters, HttpServletResponse response, HttpServletRequest request) {
+        editorService.save(game, scenes, characters);
        
         return ResponseEntity.ok(true);
     }
