@@ -70,4 +70,8 @@ public class Characters {
     
     @Column(nullable = false)
     private Integer lastcheckpoint;
+    
+    public void addItems(String item){
+        this.items=this.items + ";" + item;
+    }
 }

@@ -75,24 +75,22 @@ public class GameApiController {
         return ResponseEntity.badRequest().build();
     }
 
-    
     @Role({GUEST, USER, ADMIN, MODERATOR})
     @GetMapping("/play/{id}/{username}/character")
     public ResponseEntity<Characters> createMainCharacter(@PathVariable int id, @PathVariable String username) {
         return ResponseEntity.ok(new Characters());
     }
-    
-    
+
     @Role({GUEST, USER, ADMIN, MODERATOR})
     @PostMapping("/play/{id}/{username}/character")
     public ResponseEntity<Characters> createMainCharacter(@PathVariable int id, @PathVariable String username, HttpServletResponse response, HttpServletRequest request, @RequestBody Characters character) {
-        
+
         if (character != null) {
             gameService.setMainCharacter(character);
             try {
                 response.sendRedirect("/api/game/play/" + id);
             } catch (IOException e) {
-                
+
                 return ResponseEntity.badRequest().build();
             }
             return ResponseEntity.ok(character);
@@ -100,4 +98,48 @@ public class GameApiController {
         return ResponseEntity.badRequest().build();
     }
 
+    @Role({GUEST, USER, ADMIN, MODERATOR})
+    @GetMapping("/play/{id}/{scene}")
+    public ResponseEntity<Scenes> next(@PathVariable int id, @PathVariable int nextScene,HttpServletResponse response, HttpServletRequest request) {
+        Scenes scene = gameService.next(nextScene);
+        if (scene.getCharacterid() != null) {
+            gameService.setCharacter(scene.getCharacterid());
+        }
+
+        if (nextScene == gameService.getGame().getEndscene1() || nextScene == gameService.getGame().getEndscene2() || nextScene == gameService.getGame().getEndscene3()) {
+            Users user=userService.getUser();
+            user.setCompleted_games(user.getCompleted_games()+gameService.getGame().getName());
+            userService.getUserRepository().save(user);
+        }
+        Integer charType=gameService.getCharacterRepository().findOne(scene.getCharacterid()).getType();
+        if(charType==3){
+            //TODO figth
+        }
+        
+        String items =scene.getItems();
+        if(items != null){
+            gameService.getMainCharacter().setItems(items);
+        }
+        String items1=gameService.next(scene.getAction1()).getRequiredItems();
+        String items2=gameService.next(scene.getAction2()).getRequiredItems();
+        String items3=gameService.next(scene.getAction3()).getRequiredItems();
+        if(items1!= null){
+            if(!gameService.haveRequiredItems(items1)){
+                scene.setAction1(null);
+            }
+        }
+        if(items2!= null){
+            if(!gameService.haveRequiredItems(items2)){
+                scene.setAction2(null);
+            }
+        }
+        if(items3!= null){
+            if(!gameService.haveRequiredItems(items3)){
+                scene.setAction3(null);
+            }
+        }
+        
+        return ResponseEntity.ok(scene);
+    }
+     
 }
