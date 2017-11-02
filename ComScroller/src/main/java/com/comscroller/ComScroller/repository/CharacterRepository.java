@@ -13,5 +13,5 @@ import org.springframework.data.repository.CrudRepository;
  * @author Bohm_Balazs
  */
 public interface CharacterRepository extends CrudRepository<Characters, Integer> {
-    
+    Characters findById(Integer id);
 }

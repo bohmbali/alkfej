@@ -20,5 +20,8 @@ public interface GameRepository extends CrudRepository<Games, Integer> {
     List<Games> findAllByIspublicAndApproved(boolean isPublic, boolean approved);
     List<Games> findAllByApproved(boolean approved);
     List<Games> findAllByOwneridOrApproved(int id, boolean approved);
+    List<Games> findAllByOwnerid(Integer id, boolean b);
+    Optional<Games> findByNameAndFinished(String name, boolean finished);
+    
     
 }

@@ -36,7 +36,6 @@ public class GameApiController {
     public GameApiController(GameService gameService, UserService userService) {
         this.gameService = gameService;
         this.userService = userService;
-
     }
 
     @Role({GUEST, USER, ADMIN, MODERATOR})
