@@ -1,0 +1,39 @@
+/* You can add global styles to this file, and also import other style files */
+body{
+  background-color: #000;
+  color: white;
+  padding: 0;
+  margin: 0;
+  font-family: CGR;
+  cursor: default;
+}
+.disable-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.enable-select {
+  -webkit-user-select: default;
+  -moz-user-select: default;
+  -ms-user-select: default;
+  user-select: default;
+}
+::selection {
+  color: rgb(0,255,0);
+  background-color: #aaa;
+}
+.CGR{
+  font-family: CGR;
+}
+.CGB{
+  font-family: CGB;
+}
+@font-face {
+    font-family: CGR;
+    src: url("./media/fonts/CenturyGothicRegular.ttf");
+}
+@font-face {
+    font-family: CGB;
+    src: url("./media/fonts/CenturyGothicBold.ttf");
+}

@@ -1,0 +1,46 @@
+.dropdown {
+  background: #000;
+  color: #fff;
+  position: fixed;
+  left: 0;
+  right: 0;
+  height: auto;
+  right: auto;
+  width: 100%;
+  top: 40px;
+  z-index: 999;
+  line-height: 40px;
+  box-shadow: 0 0 10px 0 #000;
+}
+
+.dropdownbtn {
+  position: fixed;
+  left: 0;
+  top:0;
+  margin: 0;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  background-image: url('../../../../media/images/menu.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  transition: left 0.5s;
+  z-index: 1001;
+}
+.out{
+  top: -120px;
+  transition: top 0.5s;
+}
+.in{
+  top: 40px;
+  transition: top 0.5s;
+}
+
+button{
+  border: none;
+  &:focus{
+    outline: none;
+    box-shadow: inset 0 0 20px 0 rgb(50,50,50);
+  }
+}

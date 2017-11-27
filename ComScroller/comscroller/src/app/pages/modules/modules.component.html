@@ -1,0 +1,6 @@
+<div id="modules" [style.min-height.px]="container_min_height">
+  <div *ngFor="let module of modules">
+    <img src="{{module.image}}" alt="{{module.name}}">
+    <p>{{module.name}}, <b routerLink="/module/{{module.name}}">Play</b></p>
+  </div>
+</div>

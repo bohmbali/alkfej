@@ -1,0 +1,36 @@
+<div id="stage" #stage>
+  <div id="previous" class="scene {{current.animout}}" [ngClass]="getPreviousAct()"
+   [ngStyle]="{
+    'background-image': 'url(' + previous.background + ')',
+    'background-repeat': 'no-repeat',
+    'background-position': 'center',
+    'background-size': 'cover',
+    'background-color':'#000'
+  }">
+    <div *ngFor ="let obj of previous.objects"
+    class="{{obj.event}}"
+    [ngStyle]="obj.getStyle(stageWidth, stageHeight)"
+    >
+      <div *ngIf="obj.type === 'txt'">{{obj.cont}}</div>
+    </div>
+  </div>
+
+  <div id="current" class=" scene {{current.animin}}" [ngClass]="getCurrentAct()"
+   [ngStyle]="{
+    'background-image': 'url(' + current.background + ')',
+    'background-repeat': 'no-repeat',
+    'background-position': 'center',
+    'background-size': 'cover',
+    'background-color':'#000'
+  }">
+    <div *ngFor ="let obj of current.objects"
+      class="{{handleEvent(obj.event)}}"
+      [ngClass]="{'link' : obj.action !== 'none'}"
+      (click)="handleScene(obj.action)"
+      [ngStyle]="obj.getStyle(stageWidth, stageHeight)"
+    >
+      <p *ngIf="obj.type === 'txt'">{{obj.cont}}</p>
+    </div>
+  </div>
+</div>
+<img style="display: none" *ngFor ="let pre of toPreload" id="preload" src={{pre}}>
