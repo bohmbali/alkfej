@@ -11,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.annotation.SessionScope;
 import com.comscroller.ComScroller.repository.*;
 import com.comscroller.ComScroller.model.*;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -33,7 +30,7 @@ public class GameService {
     @Autowired
     private CharacterRepository characterRepository;
     private Games game;
-    private Scenes checkpoint;
+    private int checkpoint;
     private Characters mainCharacter;
     private Characters character;
 
@@ -67,8 +64,8 @@ public class GameService {
 
     public Scenes next(int id) {
         Scenes scene = sceneRepository.findOne(id);
-        if (scene.isCheckpoint()) {
-            this.checkpoint = scene;
+        if (scene.isIscheckpoint()) {
+            this.checkpoint = id;
         }
         return scene;
     }

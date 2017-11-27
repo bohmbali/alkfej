@@ -7,18 +7,16 @@ package com.comscroller.ComScroller.api;
 
 import com.comscroller.ComScroller.model.*;
 import com.comscroller.ComScroller.service.*;
-import com.comscroller.ComScroller.service.exceptions.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.comscroller.ComScroller.service.annotations.Role;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.sql.SQLException;
-import org.springframework.dao.DataIntegrityViolationException;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 import static com.comscroller.ComScroller.model.Users.Role.*;
+import java.math.BigInteger;
 
 /**
  *
@@ -31,6 +29,8 @@ public class GameApiController {
     private final GameService gameService;
 
     private final UserService userService;
+
+    private BigInteger number = BigInteger.ZERO;
 
     @Autowired
     public GameApiController(GameService gameService, UserService userService) {
@@ -55,17 +55,27 @@ public class GameApiController {
     @GetMapping("/play/{id}")
     public ResponseEntity<Scenes> play(@PathVariable int id, HttpServletResponse response, HttpServletRequest request) {
         Games game = gameService.view(id);
-        if (gameService.getMainCharacter() == null) {
-            if (game.getMaincharacter() == null) {
-                try {
-                    response.sendRedirect(request.getRequestURL() + "/" + userService.getUser().getUsername() + "/character");
-                } catch (IOException e) {
-                    return ResponseEntity.badRequest().build();
+        Users staff = userService.getUser();
+        if (((userService.isLoggedIn() || game.isIspublic()) && game.isApproved() && game.isFinished()) || userService.isAdmin(staff) || userService.isModerator(staff)) {
+            if (gameService.getMainCharacter() == null) {
+                if (game.getMaincharacter() == null) {
+                    try {
+                        System.out.println("try redirect");
+                        String username = userService.getUser().getUsername();
+                        if (username == null) {
+                            username = "GUEST" + number.toString();
+                            number.add(BigInteger.ONE);
+                        }
+                        response.sendRedirect(request.getRequestURL() + "/" + username + "/character");
+                    } catch (IOException e) {
+                        System.out.println("cannot redirect");
+                        return ResponseEntity.badRequest().build();
+                    }
+                } else {
+                    gameService.mainCharacter(game.getMaincharacter());
+
                 }
-            } else {
-                gameService.mainCharacter(game.getMaincharacter());
             }
-        } else {
             Scenes scene = gameService.start(game.getStartscene(), game);
             if (scene.getCharacterid() != null) {
                 gameService.setCharacter(scene.getCharacterid());
@@ -100,46 +110,58 @@ public class GameApiController {
 
     @Role({GUEST, USER, ADMIN, MODERATOR})
     @GetMapping("/play/{id}/{scene}")
-    public ResponseEntity<Scenes> next(@PathVariable int id, @PathVariable int nextScene,HttpServletResponse response, HttpServletRequest request) {
-        Scenes scene = gameService.next(nextScene);
-        if (scene.getCharacterid() != null) {
-            gameService.setCharacter(scene.getCharacterid());
-        }
+    public ResponseEntity<Scenes> next(@PathVariable int id, @PathVariable int nextScene, HttpServletResponse response, HttpServletRequest request) {
+        Users staff = userService.getUser();
+        Games game = gameService.getGame();
+        if (((userService.isLoggedIn() || game.isIspublic()) && game.isApproved() && game.isFinished()) || userService.isAdmin(staff) || userService.isModerator(staff)) {
 
-        if (nextScene == gameService.getGame().getEndscene1() || nextScene == gameService.getGame().getEndscene2() || nextScene == gameService.getGame().getEndscene3()) {
-            Users user=userService.getUser();
-            user.setCompleted_games(user.getCompleted_games()+gameService.getGame().getName());
-            userService.getUserRepository().save(user);
-        }
-        Integer charType=gameService.getCharacterRepository().findOne(scene.getCharacterid()).getType();
-        if(charType==3){
-            //TODO figth
-        }
-        
-        String items =scene.getItems();
-        if(items != null){
-            gameService.getMainCharacter().setItems(items);
-        }
-        String items1=gameService.next(scene.getAction1()).getRequiredItems();
-        String items2=gameService.next(scene.getAction2()).getRequiredItems();
-        String items3=gameService.next(scene.getAction3()).getRequiredItems();
-        if(items1!= null){
-            if(!gameService.haveRequiredItems(items1)){
-                scene.setAction1(null);
+            Scenes scene = gameService.next(nextScene);
+            if (scene.getCharacterid() != null) {
+                gameService.setCharacter(scene.getCharacterid());
             }
-        }
-        if(items2!= null){
-            if(!gameService.haveRequiredItems(items2)){
-                scene.setAction2(null);
+
+            if (nextScene == gameService.getGame().getEndscene1() || nextScene == gameService.getGame().getEndscene2() || nextScene == gameService.getGame().getEndscene3()) {
+                Users user = userService.getUser();
+                user.setCompleted_games(user.getCompleted_games() + ";" + gameService.getGame().getName());
+                userService.getUserRepository().save(user);
             }
-        }
-        if(items3!= null){
-            if(!gameService.haveRequiredItems(items3)){
-                scene.setAction3(null);
+            if (scene.isIsdeadpoint()) {
+                scene.setActiontext1("Előző mentési pont folytatása");
+                scene.setAction1(gameService.getCheckpoint());
+                scene.setActiontext2("Új Játék");
+                scene.setAction2(gameService.getGame().getStartscene());
             }
+            Integer charType = gameService.getCharacterRepository().findOne(scene.getCharacterid()).getType();
+            if (charType == 3) {
+                //TODO figth
+            }
+
+            String items = scene.getItems();
+            if (items != null) {
+                gameService.getMainCharacter().setItems(items);
+            }
+            String items1 = gameService.next(scene.getAction1()).getRequiredItems();
+            String items2 = gameService.next(scene.getAction2()).getRequiredItems();
+            String items3 = gameService.next(scene.getAction3()).getRequiredItems();
+            if (items1 != null) {
+                if (!gameService.haveRequiredItems(items1)) {
+                    scene.setAction1(null);
+                }
+            }
+            if (items2 != null) {
+                if (!gameService.haveRequiredItems(items2)) {
+                    scene.setAction2(null);
+                }
+            }
+            if (items3 != null) {
+                if (!gameService.haveRequiredItems(items3)) {
+                    scene.setAction3(null);
+                }
+            }
+
+            return ResponseEntity.ok(scene);
         }
-        
-        return ResponseEntity.ok(scene);
+        return ResponseEntity.badRequest().build();
     }
-     
+
 }

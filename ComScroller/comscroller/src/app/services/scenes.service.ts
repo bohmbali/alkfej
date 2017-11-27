@@ -27,7 +27,7 @@ export class ScenesService {
            900, 200, 800, 1200,
           'test/lol.gif',
           'scale: contain',
-          [1,2]
+          1
         ),
         new SceneObject(
           'img',
@@ -67,7 +67,7 @@ export class ScenesService {
            1700, 20, 200, 200,
           'images/smitd_logo.png',
           'border-radius: 50%',
-           [1, 2]
+           1
         )
       ]
     ),
@@ -77,9 +77,9 @@ export class ScenesService {
       'swipe-up',
       'swipe-out-up',
       [
-        new SceneObject('img', 'event:2', 600, 400, 600, 400, 'test/dragon.gif', 'scale: 100% 100%', [1,2]),
-        new SceneObject('img', 'none', 0, 0, 100, 100, 'test/lol.gif', 'scale: 100% 100%', [1,2]),
-        new SceneObject('img', 'event:1', 600, 400, 600, 400, 'test/dragon.gif', 'scale: 100% 100%', [2]),
+        new SceneObject('img', 'event:2', 600, 400, 600, 400, 'test/dragon.gif', 'scale: 100% 100%',1),
+        new SceneObject('img', 'none', 0, 0, 100, 100, 'test/lol.gif', 'scale: 100% 100%', 1),
+        new SceneObject('img', 'event:1', 600, 400, 600, 400, 'test/dragon.gif', 'scale: 100% 100%',2),
         new SceneObject(
           'txt',
            'scene:1',

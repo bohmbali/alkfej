@@ -72,7 +72,6 @@ export class StageComponent implements OnInit, OnDestroy {
     return "event" + input;
   }
   getCurrentAct():string{
-    this.init_events = false;
     return "act" + this.currentAct;
   }
   getPreviousAct():string{
