@@ -45,7 +45,7 @@ h1{
   margin: 10px;
 
   &:focus{
-      background-color: rgb(0,0,0);
+      background-color: rgb(30,30,30);
       outline: none;
     }
 }
@@ -78,6 +78,12 @@ button{
     background-color: #111;
     border: 5px solid #111;
   }
+}
+
+button:disabled{
+  color: #999;
+  background-color: #111;
+  border: 5px solid #111;  
 }
 
 .himg{
@@ -117,7 +123,7 @@ button{
 input[type=checkbox] {
 	visibility: hidden;
 }
-.checkboxThree {
+.checkbox {
 	width: 80px;
 	height: 40px;
 	background: #333;
@@ -126,7 +132,7 @@ input[type=checkbox] {
 	border-radius: 50px;
 	position: relative;
 }
-.checkboxThree:before {
+.checkbox:before {
   font-family: CGB;
 	content: '✔';
 	position: absolute;
@@ -141,7 +147,7 @@ input[type=checkbox] {
 	font-size: 20px;
   background-color: #222;
 }
-.checkboxThree:after {
+.checkbox:after {
   font-family: CGB;
 	content: '✘';
 	position: absolute;
@@ -156,7 +162,7 @@ input[type=checkbox] {
 	font-size: 20px;
   background-color: #222;
 }
-.checkboxThree label {
+.checkbox label {
 	display: block;
 	width: 30px;
 	height: 30px;
@@ -170,7 +176,12 @@ input[type=checkbox] {
 	left: 5px;
 	background: rgba(255,0,0,1);
 }
-.checkboxThree input[type=checkbox]:checked + label {
+.checkbox input[type=checkbox]:checked + label {
 	left: 45px;
 	background:rgba(0,255,0,1);
+}
+.checkbox input[type=checkbox]:disabled + label {
+	left: 5px;
+	width: 70px;
+	background:rgba(30,30,30,1);
 }

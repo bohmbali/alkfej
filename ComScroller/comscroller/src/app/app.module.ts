@@ -22,6 +22,8 @@ import { ScenesService } from './services/scenes.service';
 import { StageComponent } from './pages/module/stage/stage.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { CarouselComponent } from './pages/index/carousel/carousel.component';
+import { NewsComponent } from './pages/index/news/news.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { RegisterComponent } from './pages/register/register.component';
     ModuleListComponent,
     StageComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    CarouselComponent,
+    NewsComponent
   ],
   imports: [
     BrowserModule,
