@@ -20,8 +20,8 @@ body{
   user-select: default;
 }
 ::selection {
-  color: rgb(0,255,0);
-  background-color: #aaa;
+  color: rgb(10,10,10);
+  background-color: #bbb;
 }
 .CGR{
   font-family: CGR;

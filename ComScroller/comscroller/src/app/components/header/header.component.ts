@@ -9,6 +9,7 @@ export class HeaderComponent {
 
   land:string = "disabled";
   port:string = "disabled";
+  login:string = "disabled";
 
   document_width = document.documentElement.clientWidth;
   document_height = document.documentElement.clientHeight;

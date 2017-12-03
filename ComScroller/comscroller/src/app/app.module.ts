@@ -20,6 +20,8 @@ import { ModuleListComponent } from './components/modulelist/modulelist.componen
 import { ModulesService } from './services/modules.service';
 import { ScenesService } from './services/scenes.service';
 import { StageComponent } from './pages/module/stage/stage.component';
+import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { StageComponent } from './pages/module/stage/stage.component';
     DropdownmenuComponent,
     NavigationComponent,
     ModuleListComponent,
-    StageComponent
+    StageComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

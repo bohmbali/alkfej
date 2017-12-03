@@ -5,6 +5,8 @@ import { IndexComponent } from './pages/index/index.component';
 import { ModulesComponent } from './pages/modules/modules.component';
 import { EditorComponent } from './pages/editor/editor.component';
 import { ModuleComponent } from './pages/module/module.component';
+import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
 import { AccountComponent } from './pages/account/account.component';
 import { AdminComponent } from './pages/admin/admin.component';
 
@@ -12,6 +14,8 @@ const routes: Routes = [
   { path: '',  component: IndexComponent },
   { path: 'modules',     component: ModulesComponent },
   { path: 'module/:name',     component: ModuleComponent },
+  { path: 'login',     component: LoginComponent },
+  { path: 'register',     component: RegisterComponent },
   // { path: 'editor',     component: EditorComponent },
   // { path: 'account/:id',     component: AccountComponent },
   // { path: 'admin',     component: AdminComponent },
