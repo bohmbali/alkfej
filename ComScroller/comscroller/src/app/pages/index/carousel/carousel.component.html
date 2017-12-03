@@ -1,3 +1,42 @@
-<p>
-  carousel works!
-</p>
+<div id="stage" #stage>
+
+  <div id="swiped" class="scene {{swipedanim}}"
+   [ngStyle]="{
+    'background-image': 'url(' + swiped.background + ')',
+    'background-repeat': 'no-repeat',
+    'background-position': 'center',
+    'background-size': 'cover',
+    'background-color':'#000'
+  }">
+    <div *ngFor ="let obj of swiped.objects"
+    class="{{obj.event}}"
+    [ngClass]="{'link' : obj.action !== 'none'}"
+    [ngStyle]="obj.getStyle(stageWidth, stageHeight)"
+    >
+      <div *ngIf="obj.type === 'txt'">{{obj.cont}}</div>
+    </div>
+
+  </div>
+
+  <div id="current" class="scene {{inanim}}"
+   [ngStyle]="{
+    'background-image': 'url(' + current.background + ')',
+    'background-repeat': 'no-repeat',
+    'background-position': 'center',
+    'background-size': 'cover',
+    'background-color':'#000'
+  }">
+    <div *ngFor ="let obj of current.objects"
+    class="{{obj.event}}"
+    [ngClass]="{'link' : obj.action !== 'none'}"
+    [ngStyle]="obj.getStyle(stageWidth, stageHeight)"
+    >
+      <div *ngIf="obj.type === 'txt'">{{obj.cont}}</div>
+    </div>
+
+  </div>
+
+  <div class="arrow left" (click)="swipeRight()"><p><</p></div>
+  <div class="arrow right" (click)="swipeLeft()"><p>></p></div>
+
+</div>
