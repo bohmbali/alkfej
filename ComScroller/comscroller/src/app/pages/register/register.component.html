@@ -1,33 +1,78 @@
-<div id="login" [style.min-height.px]="container_min_height">
+<div id="login" class="page-body">
 
-  <img class="himg" src="../../../../media/images/smitd_logo_text.png"><br>
+   <img class="himg" src="../../../../media/images/smitd_logo_text.png"><br>
 
-  <h1>Create an account</h1>
+    <h1>Create an account</h1>
 
-  <input class="text-input" type="email" name="" placeholder="E-Mail Adress"><br>
-  <input class="text-input" type="text" name="" placeholder="Username"><br>
-  <input class="text-input" type="password" name="" placeholder="Password"><br>
-  <input class="text-input" type="password" name="" placeholder="Confirm Password"><br>
+    <form [formGroup]="registerForm" novalidate>
+        <div class="form-control">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Username" formControlName="username">
+                <mat-error *ngIf="username.hasError('required')">
+                    Username is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
 
-  <div class="checker">
-    <section>
-      <div class="checkbox">
-        <input type="checkbox" value="1" id="checkboxInput" name="" />
-        <label for="checkboxInput"></label>
-     </div>
-   </section>
-   <p>I agree to the terms.</p>
+        <div class="form-control">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Password" formControlName="password" type="password">
+                <mat-error *ngIf="password.hasError('required')">
+                    Password is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
 
-  </div>
+        <div class="form-control">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Confirm Password" formControlName="cpassword" type="password">
+                <mat-error *ngIf="cpassword.hasError('required')">
+                    Password is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div> 
 
-  <button type="button" name="button"> Create account</button>
+        <div class="form-control">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Email" formControlName="email" type="email">
+                <mat-error *ngIf="email.hasError('required')">
+                    Email is <strong>required</strong>
+                </mat-error>
+                <mat-error *ngIf="email.hasError('email')">
+                    Not a valid <strong>email</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
 
-  <div class="separator">
-    <div></div><p >or</p><div></div>
-  </div>
-  <a routerLink="/login">Log in with your SMITD Account</a>
-  <br>
-  <!-- <br><a href="">Can't log in?</a> -->
-  <br>
+        <div class="form-control">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Nickname" formControlName="nickname">
+                <mat-error *ngIf="nickname.hasError('required')">
+                    Nickname is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
 
+        <div class="checker">
+            <section>
+                <div class="checkbox">
+                    <input type="checkbox" value="1" id="checkboxInput" name="" />
+                    <label for="checkboxInput"></label>
+                </div>
+            </section>
+            <p>I agree to the terms.</p>
+
+        </div>
+
+        <button mat-raised-button class="mat-primary" (click)="submit()" [disabled]="!registerForm.valid">Register</button>
+        
+
+    </form>   
+    <div class="separator">
+            <div></div><p >or</p><div></div>
+        </div>
+        <a mat-button class="mat-accent" routerLink="/login">Log in with your SMITD Account</a>
+        <br>
+        <!-- <br><a href="">Can't log in?</a> -->
+        <br>
 </div>
