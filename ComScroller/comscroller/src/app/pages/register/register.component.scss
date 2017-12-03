@@ -10,6 +10,10 @@
   width: 100%;
 }
 
+h1{
+  margin: 10px;
+}
+
 @media (min-width: 720px) { #login{ width: 640px; } }
 @media (min-width: 1000px) { #login{ width: 920px; } }
 @media (min-width: 1200px) { #login{ width: 1140px; } }
@@ -77,8 +81,10 @@ button{
 }
 
 .himg{
-  width: 200px;
+  width: 60%;
+  max-width: 360px;
 }
+
 
 .separator{
   text-align: center;
