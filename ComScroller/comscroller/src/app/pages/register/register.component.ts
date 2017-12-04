@@ -10,17 +10,12 @@ import {Role} from "../../models/User";
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-
-    registerForm: FormGroup = new FormGroup({
-    username: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required]),
-    cpassword: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    nickname: new FormControl('', [Validators.required]),
-  });
-
+    
   constructor(private authService: AuthService, private router: Router) {
   }
+
+
+model = new User("","","","",Role.USER);
 
 // min-height
   document_height = document.documentElement.clientHeight;
@@ -38,26 +33,11 @@ export class RegisterComponent implements OnInit {
   }
   
   submit() {
-    this.authService.register(new User(this.username.value, this.password.value, this.email.value, Role.USER, this.nickname.value))
+    this.authService.register(this.model)
       .subscribe(
         res => this.router.navigate(['/modules']),
         err => console.log(err))
-  }
+  }  
   
-  
-   get username(): AbstractControl {
-    return this.registerForm.get('username');
-  }
-
-  get password(): AbstractControl {
-    return this.registerForm.get('password');
-  }
-
-  get email(): AbstractControl {
-    return this.registerForm.get('email');
-  }
-  
-  get nickname(): AbstractControl {
-    return this.registerForm.get('nickname');
-  }
+   
 }

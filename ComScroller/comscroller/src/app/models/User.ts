@@ -9,13 +9,13 @@ export class User {
   id: number;
   username: String;
   password: String;
-  email: String;
-  role: String;
-  nickname: String;  
+  email: String;  
+  nickname: String; 
+  role: Role; 
   banned: boolean ;
   completed_games: String;
   
-  constructor(username?: String, password?: String, email?: String, role?: String, nickname?: String, banned?: boolean, completed_games?: String) {
+  constructor(username?: String, password?: String, email?: String,  nickname?: String, role?: Role, banned?: boolean, completed_games?: String) {
     this.username = username || "";
     this.password = password || "";
     this.email = email || "";
