@@ -1,22 +1,86 @@
-export class Scene {
+export class Scene{
+  scene: Scenes;
   id: number;
   background: string;
   scale = 'cover';
-  animin: string;
-  animout: string;
-  objects: SceneObject[];
+  animin: String;
+  animout: String;
+  objects: SceneObject[] = [];
   toPreload: number[] = [];
-
-  constructor(_id: number, _background: string, _animin: string, _animout: string, _objects: SceneObject[]) {
-    this.id = _id;
-    if(_background !== 'none'){
-      this.background = '../../../../media/' + _background;
+  constructor(scene: Scenes) {
+    if(scene.background !== 'none'){
+      this.background = '../../../../media/' + scene.background;
     }else{
       this.background = '#000';
     }
-    this.animin = _animin;
-    this.animout = _animout;
-    this.objects = _objects;
+    this.animin = scene.animin;
+    this.animout = scene.animout;
+    var a = scene.object1.split(",");
+       
+    this.objects.push(new SceneObject(
+         a[0],
+          a[1],
+           a[2], a[3], a[4], a[5],
+          a[6],
+          a[7],
+          a[8]
+        ));
+        
+    a = scene.object2.split(","),
+       
+    this.objects.push(new SceneObject(
+         a[0],
+          a[1],
+           a[2], a[3], a[4], a[5],
+          a[6],
+          a[7],
+          a[8]
+        ));
+    
+    a = scene.object3.split(","),
+       
+    this.objects.push(new SceneObject(
+         a[0],
+          a[1],
+           a[2], a[3], a[4], a[5],
+          a[6],
+          a[7],
+          a[8]
+        ));
+    
+    a = scene.object4.split(","),
+       
+    this.objects.push(new SceneObject(
+         a[0],
+          a[1],
+           a[2], a[3], a[4], a[5],
+          a[6],
+          a[7],
+          a[8]
+        ));  
+        
+    a = scene.object5.split(","),
+       
+    this.objects.push(new SceneObject(
+         a[0],
+          a[1],
+           a[2], a[3], a[4], a[5],
+          a[6],
+          a[7],
+          a[8]
+        ));       
+        
+    a = scene.object6.split(","),
+       
+    this.objects.push(new SceneObject(
+         a[0],
+          a[1],
+           a[2], a[3], a[4], a[5],
+          a[6],
+          a[7],
+          a[8]
+        )); 
+            
     for( const o of this.objects ){
       const check = o.action.split(':');
       if(check[0] === 'scene'){
@@ -24,6 +88,44 @@ export class Scene {
         this.toPreload.push(id);
       }
     }
+  }
+}
+
+    
+export class Scenes {
+  id: number;
+  gameid: number;
+  background: String;
+  animin: String;
+  animout: String;
+  object1: String;
+  object2: String;
+  object3: String;
+  object4: String;
+  object5: String;
+  object6: String;
+   
+
+  constructor(gameid: number,
+  object1: String,  
+  background?: String,
+  animin?: String,
+  animout?: String,  
+  object3?: String,
+  object4?: String,
+  object2?: String,  
+  object5?: String,
+  object6?: String){
+    this.gameid = gameid,
+    this.object4 = object4 || null,
+    this.object1 = object1,
+    this.object2 = object2 || null,
+    this.background = background || "none",
+    this.animin = animin || "none",
+    this.animout = animout || "none",  
+    this.object3 = object3 || null,  
+    this.object5 = object5 || null,
+    this.object6 = object6 || null
   }
 
 }
@@ -41,18 +143,18 @@ export class SceneObject {
   event: number; // event number
   imageToPreload: string = '';
 
-  constructor(_type: string, _action: string, _x: number, _y: number, _w: number,
-     _h: number, _cont: string, _style, _event: number
+  constructor(_type: string, _action: string, _x: string, _y: string, _w: string,
+     _h: string, _cont: string, _style, _event: string
   ) {
     this.type = _type;
     this.action = _action;
-    this.x = _x;
-    this.y = _y;
-    this.w = _w;
-    this.h = _h;
+    this.x = Number(_x);
+    this.y = Number(_y);
+    this.w = Number(_w);
+    this.h = Number(_h);
     this.cont = _cont;
     this.style = _style;
-    this.event = _event;
+    this.event = Number(_event);
   }
 
   getStyle(w: number, h: number): any{

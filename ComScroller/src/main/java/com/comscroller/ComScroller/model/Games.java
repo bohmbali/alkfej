@@ -5,6 +5,7 @@
  */
 package com.comscroller.ComScroller.model;
 
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -64,5 +65,23 @@ public class Games {
     
     @Column()
     private String description;
+    
+    @Column()
+    private Integer approvedby;
+    
+    @Column()
+    private String published;
+    
+    @Column()
+    private String types;
+    
+    @Column()
+    private Integer views;
+    
+    @Column()
+    private Integer rate;
+    
+    @Column()
+    private String image;
     
 }

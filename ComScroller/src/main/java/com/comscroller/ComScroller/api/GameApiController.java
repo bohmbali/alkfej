@@ -118,22 +118,20 @@ public class GameApiController {
             Scenes scene = gameService.next(nextScene);
             if (scene.getCharacterid() != null) {
                 gameService.setCharacter(scene.getCharacterid());
+                Integer charType = gameService.getCharacter().getType();
+                if (charType == 3) {
+                    //TODO figth
+                }
             }
 
             if (nextScene == gameService.getGame().getEndscene1() || nextScene == gameService.getGame().getEndscene2() || nextScene == gameService.getGame().getEndscene3()) {
                 Users user = userService.getUser();
                 user.setCompleted_games(user.getCompleted_games() + ";" + gameService.getGame().getName());
                 userService.getUserRepository().save(user);
+                
             }
             if (scene.isIsdeadpoint()) {
-                scene.setActiontext1("Előző mentési pont folytatása");
-                scene.setAction1(gameService.getCheckpoint());
-                scene.setActiontext2("Új Játék");
-                scene.setAction2(gameService.getGame().getStartscene());
-            }
-            Integer charType = gameService.getCharacterRepository().findOne(scene.getCharacterid()).getType();
-            if (charType == 3) {
-                //TODO figth
+                
             }
 
             String items = scene.getItems();
@@ -145,17 +143,17 @@ public class GameApiController {
             String items3 = gameService.next(scene.getAction3()).getRequiredItems();
             if (items1 != null) {
                 if (!gameService.haveRequiredItems(items1)) {
-                    scene.setAction1(null);
+                    
                 }
             }
             if (items2 != null) {
                 if (!gameService.haveRequiredItems(items2)) {
-                    scene.setAction2(null);
+                    
                 }
             }
             if (items3 != null) {
                 if (!gameService.haveRequiredItems(items3)) {
-                    scene.setAction3(null);
+                    
                 }
             }
 

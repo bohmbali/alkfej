@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, Input, HostListener } from '@angular/core';
 
-import { Scene, SceneObject } from '../../../models/Scene';
+import { Scene, Scenes,SceneObject } from '../../../models/Scene';
 import { ScenesService } from '../../../services/scenes.service';
 
 import { ElementRef, ViewChild } from '@angular/core';
@@ -18,13 +18,8 @@ export class StageComponent implements OnInit, OnDestroy {
 
   // audio = new Audio();
 
-  previous: Scene = new Scene(
-    0,
-    'none',
-    'none',
-    'none',
-    []
-  );
+  previous: Scene = new Scene(new Scenes(0,""));
+  
   previousAct: number = 1;
   current: Scene;
   currentAct: number = 1;
@@ -90,7 +85,7 @@ export class StageComponent implements OnInit, OnDestroy {
     for(const pre of this.current.toPreload){
       const preloading = this.sceneService.getSceneById(pre);
 
-      if( preloading.background !== 'none') this.toPreload.push(preloading.background);
+      if( preloading.background !== "none") this.toPreload.push(preloading.background);
 
       for( const obj of preloading.objects ){
         if(obj.cont.split("/")[0] === 'test' || obj.cont.split("/")[0] === 'images'){

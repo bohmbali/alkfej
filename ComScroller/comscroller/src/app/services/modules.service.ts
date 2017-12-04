@@ -1,35 +1,62 @@
 import { Injectable } from '@angular/core';
 import {Http} from "@angular/http";
 import {Observable} from "rxjs/Observable";
+import {ActivatedRoute, Router} from "@angular/router";
+import {Routes, Server} from "../utils/ServerRoutes";
 import "rxjs/add/operator/map";
 
 import { Module } from '../models/Module';
+import { Scenes } from '../models/Scene';
 
 @Injectable()
 export class ModulesService {
+    
+    modullist: Module[];
+    Module: Module;
 
-  constructor() { }
+  constructor(private http: Http,private route: ActivatedRoute) {
+    
+  }
 
-  modules = [
-    new Module(
-      'test1', 'catchy','adventure', 'Description of this test adventure.',
-      '/images/smitd_logo.png',
-      false, false, false, 0,  new Date('2017-11-11'),
-      0, 0, 1,
-  ),
-    new Module("empty")
-  ];
+  listModules(): Observable<Module[]> {
+    return this.http.get(Server.routeTo(Routes.LISTG))
+      .map(res => res.json())
+  } 
+  
+  
+  view(id: number): Observable<Module>{
+      return this.http.get(Server.routeTo(Routes.VIEW) + '/' + id)
+      .map(res => res.json())
+  }
+  
+  play(id: number): Observable<Scenes>{
+      return this.http.get(Server.routeTo(Routes.VIEW) + '/' + id)
+      .map(res => res.json())
+  }
+  
+  
+  next(id: number, scene: number): Observable<Scenes>{
+      return this.http.get(Server.routeTo(Routes.VIEW) + '/' + id + '/' + scene)
+      .map(res => res.json())
+  }
 
   getModules(): Module[]{
-    return this.modules;
+    
+       this.listModules().subscribe(modules => {
+        this.modullist = modules as Module[]
+        
+    });
+    return this.modullist;
+    
   }
-  getModuleByName(name: string): Module{
-    for(const mod of this.modules){
-      if(mod.name === name){
-        return mod;
-      }
+  
+    getModuleByName(id: number): Module{
+        this.view(id).subscribe(modules => {
+        this.Module = modules as Module
+        
+    });
+    return this.Module;
     }
-    return null;
-  }
+    
 
 }

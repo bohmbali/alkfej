@@ -1,44 +1,56 @@
 
 export class Module {
-  name: string;
-  owner: string;
-  type: string;
-  description: string;
-  image: string;
-
-  public: boolean;
+  id: number;
+  name: String;
+  owner: number;
+  ispublic: boolean;
   finished: boolean;
+  types: String;  
+  startscene: number;  
+  endscene1: number;
+  
+  description: String;
   approved: boolean;
+  endscene2: number;
+  endscene3: number;
+  mainchar: number;
   approvedby: number;
-  published: Date;
-
+  published: String;  
   views: number;
   rate: number;
+  image: String;
 
-  startscene: number;
+  
 
-  constructor(_name: string = 'error', _owner: string = 'error',
-    _type: string = 'error', _description: string = 'error',
-    _image: string = '/images/smitd_logo.png', _public: boolean = false,
-    _finished: boolean = false, _approved: boolean = false,
-    _approvedby: number = 0, _published: Date = new Date('2017-11-11'),
-    _views: number = 0, _rate: number = 0, _startscene: number = 0
+  constructor(startscene: number, endscene1: number, name?: String, owner?: number, ispublic?: boolean, finished?: boolean, types?: String, 
+  description?: String,
+  approved?: boolean,
+  endscene2?: number,
+  endscene3?: number,
+  mainchar?: number,
+  approvedby?: number,
+  published?: String,  
+  views?: number,
+  rate?: number,
+  image?: String
   ) {
-    this.name = _name;
-    this.owner = _owner;
-    this.type = _type;
-    this.description = _description;
-    this.image = '../../../../media/'+_image;
-
-    this.public = _public;
-    this.finished = _finished;
-    this.approved = _approved;
-    this.approvedby = _approvedby;
-    this.published = _published;
-
-    this.views = _views;
-    this.rate = _rate;
-
-    this.startscene = _startscene;
+    this.name = name || "";
+    this.owner = owner || 1;
+    this.ispublic = ispublic || false;
+    this.finished = finished || false;
+    this.types = types || "";  
+    this.startscene = startscene;  
+    this.endscene1 = endscene1;
+  
+    this.description = description || "";
+    this.approved = approved || false;
+    this.endscene2 = endscene2 || 0;
+    this.endscene3 = endscene3 || 0;
+    this.mainchar =  mainchar || 1;
+    this.approvedby = approvedby || 0;
+    this.published = published || "2017-12-24";  
+    this.views = views || 0;
+    this.rate = rate || 0;
+    this.image = "../../../../media" + image || "../../../../media/images/smitd_logo.png";
   }
 }
