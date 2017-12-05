@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'module/:name',     component: ModuleComponent },
   { path: 'login',     component: LoginComponent },
   { path: 'register',     component: RegisterComponent },
-  // { path: 'editor',     component: EditorComponent },
+  { path: 'editor',     component: EditorComponent },
   // { path: 'account/:id',     component: AccountComponent },
   // { path: 'admin',     component: AdminComponent },
   { path: '**',     redirectTo: '', pathMatch: 'full' }

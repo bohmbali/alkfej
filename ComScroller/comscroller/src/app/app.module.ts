@@ -20,6 +20,7 @@ import { ModuleListComponent } from './components/modulelist/modulelist.componen
 import { ModulesService } from './services/modules.service';
 import { ScenesService } from './services/scenes.service';
 import { IndexService } from './services/index.service';
+import { EditorService } from './services/editor.service';
 import { StageComponent } from './pages/module/stage/stage.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
@@ -56,7 +57,8 @@ import { NewsComponent } from './pages/index/news/news.component';
   providers: [
     ModulesService,
     ScenesService,
-    IndexService
+    IndexService,
+    EditorService
   ],
   bootstrap: [AppComponent]
 })

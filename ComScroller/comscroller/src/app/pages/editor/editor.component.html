@@ -1,3 +1,36 @@
-<p>
-  editor works!
-</p>
+<div id="editor" [style.min-height.px]="container_min_height">
+
+  <div id="tab module">
+    <input class="text-input" type="text" name="" placeholder="Module Name"><br>
+
+    <form class="type">
+      <ul>
+        <li>
+          <input type="radio" id="Comic" name="selector">
+          <label for="Comic">Comic</label>
+          <div class="check"></div>
+        </li>
+
+        <li>
+          <input type="radio" id="Adventure" name="selector">
+          <label for="Adventure">Adventure</label>
+          <div class="check"><div class="inside"></div></div>
+        </li>
+
+        <li>
+          <input type="radio" id="Novel" name="selector">
+          <label for="Novel">Novel</label>
+          <div class="check"><div class="inside"></div></div>
+        </li>
+      </ul>
+    </form>
+
+
+
+    <textarea class="text-area" maxlength="100" name="" placeholder="Description"></textarea><br>
+
+    <button type="button" name="button">Submit</button>
+
+  </div>
+
+</div>

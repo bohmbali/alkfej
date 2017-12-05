@@ -29,6 +29,7 @@
     <div *ngFor ="let obj of current.objects"
     class="{{obj.event}}"
     [ngClass]="{'link' : obj.action !== 'none'}"
+    routerLink="{{obj.action}}"
     [ngStyle]="obj.getStyle(stageWidth, stageHeight)"
     >
       <div *ngIf="obj.type === 'txt'">{{obj.cont}}</div>
