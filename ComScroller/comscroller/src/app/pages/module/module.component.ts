@@ -14,7 +14,7 @@ import { ModulesService } from '../../services/modules.service';
 })
 export class ModuleComponent implements OnInit {
 
-  moduleName: string;
+  moduleid: number;
   module: Module;
 
   constructor(
@@ -23,14 +23,14 @@ export class ModuleComponent implements OnInit {
   ){
     this.route.params.subscribe(
       params => {
-       this.moduleName = params['name'];
+       this.moduleid = params['name'];
      },
       err => console.log(err)
     );
   }
 
   launch(){
-      this.module = this.moduleService.getModuleByName(this.moduleName);
+      this.module = this.moduleService.getModuleByName(this.moduleid);
 
   }
 

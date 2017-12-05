@@ -27,6 +27,11 @@ import { RegisterComponent } from './pages/register/register.component';
 import { CarouselComponent } from './pages/index/carousel/carousel.component';
 import { NewsComponent } from './pages/index/news/news.component';
 
+import {AuthService} from "./services/auth.service";
+
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,7 +63,11 @@ import { NewsComponent } from './pages/index/news/news.component';
     ModulesService,
     ScenesService,
     IndexService,
+<<<<<<< HEAD
     EditorService
+=======
+    AuthService
+>>>>>>> f948aa0c6aea83fbb3450e94de62c4e2e33cdbbc
   ],
   bootstrap: [AppComponent]
 })

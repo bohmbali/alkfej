@@ -35,35 +35,33 @@ public class Scenes {
     @Column(nullable = false)
     private Integer gameid;
         
-    @Column(nullable = false)
-    private Integer type;
+     
+    @Column()
+    private String object1;
     
     @Column()
-    private String maintext;
+    private String object2;
     
     @Column()
-    private String picture1;
-    
-    @Column()
-    private String picture2;
+    private String object3;
     
     @Column()
     private Integer action1;
      
     @Column()
-    private String actiontext1;
+    private String object4;
     
     @Column()
     private Integer action2;
      
     @Column()
-    private String actiontext2;
+    private String object5;
     
     @Column()
     private Integer action3;
      
     @Column()
-    private String actiontext3;
+    private String object6;
         
     @Column()
     private Integer characterid;
@@ -79,4 +77,15 @@ public class Scenes {
     
     @Column()
     private String requiredItems;
+    
+    @Column()
+    private String background;
+    
+    
+    @Column()
+    private String animin;
+    
+    
+    @Column()
+    private String animout;
 }

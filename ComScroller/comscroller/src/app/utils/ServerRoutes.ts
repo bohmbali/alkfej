@@ -6,7 +6,9 @@ export class Routes {
   static DELETE: String = 'user/delete';
   static ROLE: String = 'user/role';
   static USERS: String = 'user/users';
-  
+  static LISTG: String = 'game';
+  static VIEW: String = 'game/view';
+  static PLAY: String = 'game/play';
 }
 
 export class Server {

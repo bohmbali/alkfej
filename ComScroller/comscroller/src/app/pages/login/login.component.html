@@ -1,18 +1,29 @@
 <div id="login" [style.min-height.px]="container_min_height">
 
-  <img class="himg" src="../../../../media/images/smitd_logo_text.png"><br>
+    <img class="himg" src="../../../../media/images/smitd_logo_text.png"><br>
 
-  <input type="text" name="" placeholder="Username"><br>
-  <input type="password" name="" placeholder="Password"><br>
+    <h1>Login</h1>
+    
+    <form #userForm="ngForm">
+        <input type="text" class="form-control" id="username" placeholder="Username"
+               required
+               [(ngModel)]="model.username" name="username"
+               #name="ngModel">
+               <input type="password" class="form-control" id="password" placeholder="Password"
+               required
+               [(ngModel)]="model.password" name="password"
+               #name="ngModel">
+            
+            <button type="button" class="btn btn-default" (click)="submit()">Login</button>
 
-  <button type="button" name="button"> Log in to SMITD</button>
-
-  <div class="separator">
-    <div></div><p >or</p><div></div>
-  </div>
-  <a routerLink="/register">Create a free SMITD Account</a>
-  <br>
-  <!-- <br><a href="">Can't log in?</a> -->
-  <br>
+    </form>
+    
+    <div class="separator">
+        <div></div><p >or</p><div></div>
+    </div>
+    <a routerLink="/register">Create a free SMITD Account</a>
+    <br>
+    <!-- <br><a href="">Can't log in?</a> -->
+    <br>
 
 </div>

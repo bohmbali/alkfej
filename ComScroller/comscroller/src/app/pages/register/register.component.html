@@ -1,33 +1,36 @@
-<div id="login" [style.min-height.px]="container_min_height">
+<div id="login"  [style.min-height.px]="container_min_height">
 
-  <img class="himg" src="../../../../media/images/smitd_logo_text.png"><br>
+   <img class="himg" src="../../../../media/images/smitd_logo_text.png"><br>
 
-  <h1>Create an account</h1>
+    <h1>Create an account</h1>
+    
+    <form #userForm="ngForm" class="checker">
+        <input type="text" class="form-control" id="username" placeholder="Username"
+               required
+               [(ngModel)]="model.username" name="username"
+               #name="ngModel">
+        <input type="password" class="form-control" id="password" placeholder="Password"
+               required
+               [(ngModel)]="model.password" name="password"
+               #name="ngModel">
+               <input type="text" class="form-control" id="email" placeholder="Email"
+               required
+               [(ngModel)]="model.email" name="email"
+               #name="ngModel">
+               <input type="text" class="form-control" id="nickname" placeholder="Nickname"
+               required
+               [(ngModel)]="model.nickname" name="nickname"
+               #name="ngModel">
+            
+            <button type="button" class="btn btn-default" (click)="submit()">Create Account</button>
 
-  <input class="text-input" type="email" name="" placeholder="E-Mail Adress"><br>
-  <input class="text-input" type="text" name="" placeholder="Username"><br>
-  <input class="text-input" type="password" name="" placeholder="Password"><br>
-  <input class="text-input" type="password" name="" placeholder="Confirm Password"><br>
-
-  <div class="checker">
-    <section>
-      <div class="checkbox">
-        <input type="checkbox" value="1" id="checkboxInput" name="" />
-        <label for="checkboxInput"></label>
-     </div>
-   </section>
-   <p>I agree to the terms.</p>
-
-  </div>
-
-  <button type="button" name="button"> Create account</button>
-
-  <div class="separator">
-    <div></div><p >or</p><div></div>
-  </div>
-  <a routerLink="/login">Log in with your SMITD Account</a>
-  <br>
-  <!-- <br><a href="">Can't log in?</a> -->
-  <br>
-
+    </form>
+       
+    <div class="separator">
+            <div></div><p >or</p><div></div>
+        </div>
+        <a routerLink="/login">Log in with your SMITD Account</a>
+        <br>
+        <!-- <br><a href="">Can't log in?</a> -->
+        <br>
 </div>
