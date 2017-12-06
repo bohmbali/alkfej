@@ -1,23 +1,28 @@
 import { Injectable } from '@angular/core';
 
 import { Module } from '../models/Module';
-import { Scene, SceneObject } from '../models/Scene';
+import { Scene,Scenes, SceneObject } from '../models/Scene';
+import {Http} from "@angular/http";
+import { ModulesService } from '../services/modules.service';
 
 @Injectable()
 export class EditorService {
 
-  constructor() { }
-
-  // createModule(create : Module){}
-  // createScene(create : Scene){}
+  constructor(private http: Http) { }
+    
+    scenes: Scenes[] = [];
+    modules: Module;    
+     
+     create(){
+         
+     }
+  
+   
   //
-  // getModule(id : number): Module{ return new Module(); }
-  // getScene(id : number): Scene{ return new Scene(); }
+  updateModule(id : number, create : Module){}
+  updateScene(id : number, create : Scene){}
   //
-  // updateModule(id : number, create : Module){}
-  // updateScene(id : number, create : Scene){}
-  //
-  // deleteModule(id : number){}
-  // deleteScene(id : number){}
+  deleteModule(id : number){}
+  deleteScene(id : number){}
 
 }

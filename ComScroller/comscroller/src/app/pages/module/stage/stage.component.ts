@@ -32,7 +32,9 @@ export class StageComponent implements OnInit, OnDestroy {
   ){}
 
   ngOnInit() {
-    this.current = this.sceneService.getSceneById(this.beginwith);
+      
+      // ezt még javítanod kell még mindig csak egy paramétert adsz át
+    this.current = this.sceneService.getSceneById(this.beginwith,1);
     this.getDimensions()
     // this.audio.src = "../../../../media/music/02-oakvale.mp3";
     // this.audio.load();
@@ -53,7 +55,8 @@ export class StageComponent implements OnInit, OnDestroy {
       this.previous = this.current;
       this.previousAct = this.currentAct;
       this.currentAct = 1;
-      this.current = this.sceneService.getSceneById(id);
+      // ezt még javítanod kell még mindig csak egy paramétert adsz át
+      this.current = this.sceneService.getSceneById(id,1);
       if(this.current.animin === this.previous.animin){
         this.current.animin = this.current.animin + "C";
       }
@@ -83,7 +86,9 @@ export class StageComponent implements OnInit, OnDestroy {
 
   preload(){
     for(const pre of this.current.toPreload){
-      const preloading = this.sceneService.getSceneById(pre);
+        
+      // ezt még javítanod kell még mindig csak egy paramétert adsz át
+      const preloading = this.sceneService.getSceneById(pre, 1);
 
       if( preloading.background !== "none") this.toPreload.push(preloading.background);
 

@@ -10,7 +10,6 @@ import com.comscroller.ComScroller.model.Games;
 import com.comscroller.ComScroller.model.Scenes;
 import com.comscroller.ComScroller.model.Users;
 import static com.comscroller.ComScroller.model.Users.Role.ADMIN;
-import static com.comscroller.ComScroller.model.Users.Role.GUEST;
 import static com.comscroller.ComScroller.model.Users.Role.MODERATOR;
 import static com.comscroller.ComScroller.model.Users.Role.USER;
 import com.comscroller.ComScroller.service.EditorService;

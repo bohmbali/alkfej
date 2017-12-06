@@ -15,7 +15,7 @@ export class Scene{
     }
     this.animin = scene.animin;
     this.animout = scene.animout;
-    var a = scene.object1.split(",");
+    var a = scene.object1.split("&");
        
     this.objects.push(new SceneObject(
          a[0],
@@ -25,8 +25,13 @@ export class Scene{
           a[7],
           a[8]
         ));
-        
-    a = scene.object2.split(","),
+    var check = a[2].split(':');    
+    if(check[0] === 'scene'){
+        const id = +check[1];
+        this.toPreload.push(id);
+      }
+    if (scene.object2 != null){    
+    a = scene.object2.split("&");
        
     this.objects.push(new SceneObject(
          a[0],
@@ -36,19 +41,32 @@ export class Scene{
           a[7],
           a[8]
         ));
+    check = a[2].split(':');    
+    if(check[0] === 'scene'){
+        const id = +check[1];
+        this.toPreload.push(id);
+      }    
+    }
+    if (scene.object3 != null){    
+    a = scene.object3.split("&");
+       
+    this.objects.push(new SceneObject(
+         a[0],
+          a[1],
+           a[2], a[3], a[4], a[5],
+          a[6],
+          a[7],
+          a[8]
+        ));
+    check = a[2].split(':');    
+    if(check[0] === 'scene'){
+        const id = +check[1];
+        this.toPreload.push(id);
+      }
+    }
     
-    a = scene.object3.split(","),
-       
-    this.objects.push(new SceneObject(
-         a[0],
-          a[1],
-           a[2], a[3], a[4], a[5],
-          a[6],
-          a[7],
-          a[8]
-        ));
-    
-    a = scene.object4.split(","),
+    if (scene.object3 != null){ 
+    a = scene.object4.split("&");
        
     this.objects.push(new SceneObject(
          a[0],
@@ -58,8 +76,14 @@ export class Scene{
           a[7],
           a[8]
         ));  
-        
-    a = scene.object5.split(","),
+    check = a[2].split(':');    
+    if(check[0] === 'scene'){
+        const id = +check[1];
+        this.toPreload.push(id);
+      }
+    }
+    if (scene.object3 != null){     
+    a = scene.object5.split("&");
        
     this.objects.push(new SceneObject(
          a[0],
@@ -68,9 +92,15 @@ export class Scene{
           a[6],
           a[7],
           a[8]
-        ));       
-        
-    a = scene.object6.split(","),
+        ));
+    check = a[2].split(':');    
+    if(check[0] === 'scene'){
+        const id = +check[1];
+        this.toPreload.push(id);
+      }           
+    }
+    if (scene.object3 != null){     
+    a = scene.object6.split("&");
        
     this.objects.push(new SceneObject(
          a[0],
@@ -80,14 +110,13 @@ export class Scene{
           a[7],
           a[8]
         )); 
-            
-    for( const o of this.objects ){
-      const check = o.action.split(':');
-      if(check[0] === 'scene'){
+    check = a[2].split(':');    
+    if(check[0] === 'scene'){
         const id = +check[1];
         this.toPreload.push(id);
-      }
+      }    
     }
+           
   }
 }
 

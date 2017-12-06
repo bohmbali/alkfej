@@ -8,10 +8,17 @@ export class IndexService {
   constructor() { }
 
   featured = [
-    new Scene( new Scenes(0,"")),
-    new Scene( new Scenes(0,"")),
-    new Scene( new Scenes(0,""))
-
+  
+    new Scene( new Scenes(0,"txt&/&0&920&1920&160&Sup mate?&background: rgba(0,0,0,0.5); font-family: CGB; color: white; text-align: center&1",'projects/cursed.png',
+      'swipe-left',
+      'swipe-out-left')),
+      new Scene( new Scenes(0,"txt&/&0&920&1920&160&Sup mate?&background: rgba(0,0,0,0.5); font-family: CGB; color: white; text-align: center&1",'projects/cursed.png',
+      'swipe-left',
+      'swipe-out-left')),
+      new Scene( new Scenes(0,"txt&/&0&920&1920&160&Sup mate?&background: rgba(0,0,0,0.5); font-family: CGB; color: white; text-align: center&1",'projects/cursed.png',
+      'swipe-left',
+      'swipe-out-left'))
+    
   ];
 
   news = [

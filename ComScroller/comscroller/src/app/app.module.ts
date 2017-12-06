@@ -63,11 +63,10 @@ import {AuthService} from "./services/auth.service";
     ModulesService,
     ScenesService,
     IndexService,
-<<<<<<< HEAD
-    EditorService
-=======
+    EditorService,
+
     AuthService
->>>>>>> f948aa0c6aea83fbb3450e94de62c4e2e33cdbbc
+
   ],
   bootstrap: [AppComponent]
 })
